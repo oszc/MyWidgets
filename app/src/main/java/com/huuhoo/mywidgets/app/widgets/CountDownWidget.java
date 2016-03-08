@@ -33,9 +33,30 @@ public class CountDownWidget extends TextView{
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+
         int measuredWidth = getMeasuredWidth();
         int measuredHeight = getMeasuredHeight();
         Log.e(TAG,"measuredWidth:"+measuredWidth + " measuredHeight:"+measuredHeight);
+        Log.e(TAG,"widthMode:"+widthMode+" heightMode:"+heightMode);
+        if(widthMode==MeasureSpec.AT_MOST){
+            Log.e(TAG,"widthMode:AtMost");
+        }else if(widthMode == MeasureSpec.EXACTLY){
+            Log.e(TAG,"widthMode:Exactly");
+        }else if(widthMode == MeasureSpec.UNSPECIFIED){
+            Log.e(TAG,"widthMode:UNSPECIFIED");
+        }
         setMeasuredDimension(measuredWidth+100,measuredHeight);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e(TAG,left+":"+top+":"+":"+right+":"+bottom);
     }
 }

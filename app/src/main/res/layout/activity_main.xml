@@ -6,8 +6,11 @@
 
     <com.huuhoo.mywidgets.app.widgets.CountDownWidget
             android:id="@+id/cdw"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HelloWorld"/>
+            android:text="HelloWorld"
+            android:background="@drawable/rect"/>
 
 </RelativeLayout>
