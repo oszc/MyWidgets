@@ -1,21 +1,25 @@
 package com.huuhoo.mywidgets.app.widgets;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import com.huuhoo.mywidgets.app.R;
 
 /**
  * 3/8/16  9:34 PM
  * Created by JustinZhang.
  */
-public class CountDownWidget extends TextView{
+public class CountDownWidget extends LinearLayout{
 
-    private static final String TAG = CountDownWidget.class.getSimpleName();
-    private Rect mRect;
-    private Paint mPaint;
+    private EditText mEtContent;
+    private Button mBtCountDown;
+
+    private View mRoot;
 
 
     public CountDownWidget(Context context) {
@@ -23,40 +27,27 @@ public class CountDownWidget extends TextView{
     }
 
     public CountDownWidget(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public CountDownWidget(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mRoot = inflater.inflate(R.layout.layout_countdown,this);
 
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        mEtContent = (EditText) mRoot.findViewById(R.id.et_content);
+        mBtCountDown = (Button) mRoot.findViewById(R.id.bt_countdown);
 
+        if(attrs!=null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CountDownWidget);
 
-        int measuredWidth = getMeasuredWidth();
-        int measuredHeight = getMeasuredHeight();
-        Log.e(TAG,"measuredWidth:"+measuredWidth + " measuredHeight:"+measuredHeight);
-        Log.e(TAG,"widthMode:"+widthMode+" heightMode:"+heightMode);
-        if(widthMode==MeasureSpec.AT_MOST){
-            Log.e(TAG,"widthMode:AtMost");
-        }else if(widthMode == MeasureSpec.EXACTLY){
-            Log.e(TAG,"widthMode:Exactly");
-        }else if(widthMode == MeasureSpec.UNSPECIFIED){
-            Log.e(TAG,"widthMode:UNSPECIFIED");
+            a.recycle();
         }
-        setMeasuredDimension(measuredWidth+100,measuredHeight);
+
+
     }
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        Log.e(TAG,left+":"+top+":"+":"+right+":"+bottom);
-    }
+
+
 }
