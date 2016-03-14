@@ -5,15 +5,17 @@
                 android:layout_height="match_parent"
                 tools:context="${relativePackage}.${activityClass}">
 
-    <com.huuhoo.mywidgets.app.widgets.CountDownWidget
+    <!--com.huuhoo.mywidgets.app.widgets.CountDownWidget
             android:id="@+id/cdw"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="fill_parent"
-            app:countdown_bt_color="@drawable/abc_btn_borderless_material"
+            app:countdown_bg="@drawable/input"
+            app:countdown_bt_bg="@drawable/register"
+            app:last="1"
+            app:countdown_et_hint="请输入手机号码"
             android:layout_height="wrap_content"
-            android:text="HelloWorld"
-            android:background="@drawable/rect"/>
+            android:background="@drawable/rect"/ -->
 
 </RelativeLayout>

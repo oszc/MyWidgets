@@ -7,23 +7,29 @@
     <EditText
             android:id="@+id/et_content"
             android:layout_width="wrap_content"
-            android:background="#00000000"
-            android:text="hello World"
+            android:background="@null"
             android:paddingLeft="10dp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
             android:layout_height="fill_parent"/>
 
     <Button
             android:id="@+id/bt_countdown"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:layout_marginRight="10dp"
-            android:background="#00000000"
+            android:paddingTop="2dp"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:paddingBottom="2dp"
             android:layout_gravity="center_vertical"
-            android:text="countdown"
+            android:text="获取验证码"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

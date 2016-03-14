@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountDownWidget">
+        <attr name="countdown_bg" format="reference"/>
+        <attr name="countdown_et_hint" format="string"/>
+        <attr name="countdown_et_text" format="string"/>
+        <attr name="countdown_bt_text" format="string"/>
+        <attr name="countdown_bt_bg" format="reference"/>
+        <attr name="last" format="integer"/>
+
+
+    </declare-styleable>
+</resources>
