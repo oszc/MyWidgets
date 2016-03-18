@@ -1,7 +1,6 @@
 package com.huuhoo.mywidgets.app.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
@@ -74,5 +73,6 @@ public class ImageUtil {
         }
         return 1;
     }
+
 
 }
