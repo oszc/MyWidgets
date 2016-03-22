@@ -3,43 +3,35 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#093821"
                 tools:context="${relativePackage}.${activityClass}">
 
-    <!--com.huuhoo.mywidgets.app.widgets.CountDownWidget
-            android:id="@+id/cdw"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="fill_parent"
-            app:countdown_bg="@drawable/input"
-            app:countdown_bt_bg="@drawable/register"
-            app:last="1"
-            app:countdown_et_hint="请输入手机号码"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rect"/ -->
 
-    <ImageView
-            android:id="@+id/iv"
-            android:scaleType="centerCrop"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-        <EditText
-                android:id="@+id/et_time"
-                android:text="5000"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                />
-
-    <Button
-            android:onClick="click"
-            android:text="start"
+    <com.huuhoo.mywidgets.app.widgets.MyCircleMenuLayout
+            android:id="@+id/ci"
+            android:background="#881111"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:id="@id/id_circle_menu_item_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:layout_width="104.0dip"
+                    android:layout_height="104.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/turnplate_center_unlogin"/>
+
+            <ImageView
+                    android:layout_width="116.0dip"
+                    android:layout_height="116.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/turnplate_mask_unlogin_normal"/>
+        </RelativeLayout>
+
+    </com.huuhoo.mywidgets.app.widgets.MyCircleMenuLayout>
+
+
 </RelativeLayout>

@@ -10,4 +10,9 @@
 
 
     </declare-styleable>
+
+    <item name="id_circle_menu_item_image" type="id"/>
+    <item name="id_circle_menu_item_text" type="id"/>
+    <item name="id_circle_menu_item_center" type="id"/>
+
 </resources>
