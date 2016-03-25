@@ -23,7 +23,8 @@ import com.huuhoo.mywidgets.app.widgets.MyCircleMenuLayout;
 public class MainActivity extends Activity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private MyCircleMenuLayout mCi;
+    private CircleMenuLayout mCi;
+    private MyCircleMenuLayout myCi;
 
     private String[] mItemTexts = new String[] { "安全中心 ", "特色服务", "投资理财",
             "转账汇款", "我的账户", "信用卡" };
@@ -35,12 +36,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCi = (MyCircleMenuLayout) findViewById(R.id.ci);
-
-        mCi.setMenuItemIconsAndTexts(mItemImgs,mItemTexts);
-
-
-
 
     }
 

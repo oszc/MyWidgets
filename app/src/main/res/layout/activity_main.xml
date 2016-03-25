@@ -7,31 +7,9 @@
                 tools:context="${relativePackage}.${activityClass}">
 
 
-    <com.huuhoo.mywidgets.app.widgets.MyCircleMenuLayout
-            android:id="@+id/ci"
-            android:background="#881111"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <RelativeLayout
-                android:id="@id/id_circle_menu_item_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <ImageView
-                    android:layout_width="104.0dip"
-                    android:layout_height="104.0dip"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/turnplate_center_unlogin"/>
-
-            <ImageView
-                    android:layout_width="116.0dip"
-                    android:layout_height="116.0dip"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/turnplate_mask_unlogin_normal"/>
-        </RelativeLayout>
-
-    </com.huuhoo.mywidgets.app.widgets.MyCircleMenuLayout>
+    <com.huuhoo.mywidgets.app.widgets.LuckyPanView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 </RelativeLayout>

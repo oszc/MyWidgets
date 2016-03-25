@@ -17,14 +17,25 @@ public class MyCircleMenuLayout extends ViewGroup {
 
     private static final String TAG = MyCircleMenuLayout.class.getSimpleName();
     private static float RADIO_LAYOUT_PADDING = 1 / 12f;
-    private static float RADIO_DEFAULT_CHILD_DIMENSION = 1 / 4f;
+    private static float RADIO_DEFAULT_CHILD_DIMENSION = 1 / 2f;
+    private float RADIO_DEFAULT_CENTERITEM_DIMENSION = 1 / 3f;
     private int mRadius;
     private int mDiameter;
     private int mChildWidth;
     private int mStartAngle = 0;
 
     private int mPadding;
+    private int mFlingableValue = 300;
 
+    private boolean isFling = false;
+
+    /**
+     * 如果移动角度达到该值，则屏蔽点击
+     */
+    private static final int NOCLICK_VALUE = 3;
+
+
+    private AutoFlingRunnable mFlingTask;
     /**
      * 菜单项的文本
      */
@@ -125,9 +136,6 @@ public class MyCircleMenuLayout extends ViewGroup {
             addView(view);
         }
     }
-
-    /*****************************************************************************/
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //   super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -160,9 +168,12 @@ public class MyCircleMenuLayout extends ViewGroup {
         mChildWidth = (int) (mRadius * RADIO_DEFAULT_CHILD_DIMENSION);
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
+            if(child.getVisibility() == GONE){
+                continue;
+            }
             if (child.getId() == R.id.id_circle_menu_item_center) {
 
-                int centerMeasureSpec = MeasureSpec.makeMeasureSpec((int) (11 / 24.0f * mDiameter), MeasureSpec.EXACTLY);
+                int centerMeasureSpec = MeasureSpec.makeMeasureSpec((int) (RADIO_DEFAULT_CENTERITEM_DIMENSION * mDiameter), MeasureSpec.EXACTLY);
                 child.measure(centerMeasureSpec, centerMeasureSpec);
             } else {
                 //    Log.e(TAG,"child width"+mChildWidth);
@@ -208,9 +219,9 @@ public class MyCircleMenuLayout extends ViewGroup {
 
         View centerView = findViewById(R.id.id_circle_menu_item_center);
         if (centerView != null) {
-            left = (int) (mRadius - 11 / 24f * mDiameter / 2.0f);
+            left = (int) (mRadius - RADIO_DEFAULT_CENTERITEM_DIMENSION * mDiameter / 2.0f);
             top = left;
-            centerView.layout(left, top, (int) (left + 11 / 24f * mDiameter), (int) (top + 11 / 24f * mDiameter));
+            centerView.layout(left, top, (int) (left + RADIO_DEFAULT_CENTERITEM_DIMENSION * mDiameter), (int) (top + RADIO_DEFAULT_CENTERITEM_DIMENSION * mDiameter));
         }
 
     }
@@ -218,6 +229,8 @@ public class MyCircleMenuLayout extends ViewGroup {
 
     private float mLastX;
     private float mLastY;
+    private float mTempAngle;
+    private long mDownTime = 0;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -225,36 +238,58 @@ public class MyCircleMenuLayout extends ViewGroup {
         int action = ev.getAction();
         float x = ev.getX();
         float y = ev.getY();
-        long downTime = System.currentTimeMillis();
+
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
 
+
                 mLastX = x;
                 mLastY = y;
+                mDownTime = System.currentTimeMillis();
+                mTempAngle = 0;
+                if(isFling){
+                    removeCallbacks(mFlingTask);
+                    isFling = false;
+                    return true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
 
                 float end = getAngle(x, y);
                 float start = getAngle(mLastX, mLastY);
 
-                Log.e(TAG,"start angle:"+start+ "   end angle:"+end);
+                Log.e(TAG,"start angle:"+start+ "   end angle:"+end + " now angle --> "+ mStartAngle);
 
                 int quadrant = getQuadrant(x, y);
+                Log.e(TAG,"quadrant: "+quadrant);
                 if (quadrant == 1 || quadrant == 4) {
                     mStartAngle += (end - start);
-                    // mTmpAngle += end- start;
+                    mTempAngle+= end- start;
                 } else {
                     mStartAngle += (start - end);
-                    //  mTmpAngle += start-end;
+                    mTempAngle+= start-end;
                 }
                 requestLayout();
                 mLastX = x;
                 mLastY = y;
-
                 break;
             case MotionEvent.ACTION_UP:
 
+                Log.e(TAG,"action up");
+                float anglePerSec = mTempAngle * 1000 / (System.currentTimeMillis() - mDownTime);
+
+                if(Math.abs(anglePerSec)> mFlingableValue && !isFling){
+
+                    post(mFlingTask = new AutoFlingRunnable(anglePerSec));
+                    return true;
+                }
+
+                // 如果当前旋转角度超过NOCLICK_VALUE屏蔽点击
+                if (Math.abs(mTempAngle) > NOCLICK_VALUE)
+                {
+                    return true;
+                }
 
                 break;
         }
@@ -280,4 +315,27 @@ public class MyCircleMenuLayout extends ViewGroup {
     }
 
 
+    private class AutoFlingRunnable implements Runnable{
+
+
+        private float angleToFling;
+
+        public AutoFlingRunnable(float angleToFling) {
+            this.angleToFling = angleToFling;
+        }
+
+        @Override
+        public void run() {
+            if(Math.abs(angleToFling)< 10){
+                isFling = false;
+                return;
+            }
+
+            isFling = true;
+            mStartAngle += angleToFling/(30);
+            angleToFling/=1.0666f;
+            postDelayed(this,16);
+            requestLayout();
+        }
+    }
 }

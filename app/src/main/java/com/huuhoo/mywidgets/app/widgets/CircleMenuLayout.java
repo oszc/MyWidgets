@@ -432,7 +432,8 @@ public class CircleMenuLayout extends ViewGroup{
             }
             isFling = true;
             // 不断改变mStartAngle，让其滚动，/30为了避免滚动太快
-            mStartAngle += (angelPerSecond / 16);
+          //  mStartAngle += (angelPerSecond / 16);
+            mStartAngle += angelPerSecond/30;
             // 逐渐减小这个值
             angelPerSecond /= 1.0666F;
             postDelayed(this, 16);
