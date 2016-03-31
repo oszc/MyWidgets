@@ -13,6 +13,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.huuhoo.mywidgets.app.utils.ImageUtil;
 import com.huuhoo.mywidgets.app.utils.MyRotateAnimation;
 import com.huuhoo.mywidgets.app.utils.RangeInterpolator;
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View  tv;
 
     }
 

@@ -7,9 +7,9 @@
                 tools:context="${relativePackage}.${activityClass}">
 
 
-    <com.huuhoo.mywidgets.app.widgets.LuckyPanView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <com.huuhoo.mywidgets.app.widgets.PaintTestView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>
