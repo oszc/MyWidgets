@@ -5,20 +5,24 @@ import android.graphics.*;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageView;
 import com.huuhoo.mywidgets.app.R;
 
 /**
  * 3/25/16  2:00 PM
  * Created by JustinZhang.
  */
-public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
+public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback, Runnable, View.OnTouchListener {
 
     private static final String TAG = LuckyPanView.class.getSimpleName();
     private SurfaceHolder mSurfaceHolder;
     private Thread t;
     private boolean isRunning;
+    private ImageView mIv;
 
 
     /**
@@ -70,7 +74,7 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
     /**
      * 滚动的速度
      */
-    private double mSpeed = 1;
+    private double mSpeed = 0;
     private volatile float mStartAngle = 0;
     /**
      * 是否点击了停止
@@ -97,6 +101,9 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
     private float mTextSize = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP, 20, getResources().getDisplayMetrics());
 
+    private Bitmap mArrowBitmap;
+    private int mArrowWidth;
+    private int mArrowHeight;
 
     public LuckyPanView(Context context) {
         this(context, null);
@@ -145,6 +152,14 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
         t = new Thread(this);
         t.start();
 
+        mArrowWidth = mRadius / 4;
+        mArrowHeight = mArrowWidth * 2;
+        mIv = new ImageView(getContext());
+        mIv.layout(0, 0, mArrowWidth, mArrowHeight);
+        mArrowBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);
+        mIv.setImageBitmap(mArrowBitmap);
+        setOnTouchListener(this);
+
     }
 
     @Override
@@ -155,7 +170,6 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
         isRunning = false;
     }
 
@@ -174,10 +188,23 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
         setMeasuredDimension(width, width);
     }
 
+    long start = 0;
+    long end = 0;
+
     @Override
     public void run() {
         while (isRunning) {
+            start = System.currentTimeMillis();
             draw();
+            end = System.currentTimeMillis();
+
+            if (end - start < 16) {
+                try {
+                    Thread.sleep(16 - (end - start));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -189,21 +216,25 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
             mCanvas = mSurfaceHolder.lockCanvas();
             float sweepAngle = 360.0f / mItemCount;
             float tempAngle = (mStartAngle += (mSpeed));
+            int imageWidth = mDiameter / 8;
             //tempAngle%=360;
+
             if (mCanvas != null) {
                 drawBackGround();
                 //   drawPanel(sweepAngle);
                 for (int i = 0; i < mItemCount; i++) {
                     mArcPaint.setColor(mColors[i]);
                     mCanvas.drawArc(mRange, tempAngle, sweepAngle, true, mArcPaint);
-                    float top = 0, left = 0;
-                    Bitmap bmp = mImgsBitmap[i];
-                    float angle = tempAngle + sweepAngle / 2.0f;
-                    top = (float) (mRadius + mRadius / 2.0f * Math.cos(Math.toRadians(angle))) - bmp.getHeight() / 2.0f;
-                    left = (float) (mRadius + mRadius / 2.0f * Math.sin(Math.toRadians(angle))) - bmp.getWidth() / 2.0f;
-                    mCanvas.drawBitmap(mImgsBitmap[i], top, left, mTextPaint);
+                    drawItem(tempAngle + sweepAngle / 2.0f, imageWidth, mImgsBitmap[i]);
+                    drawText(tempAngle + sweepAngle / 2.0f, mStrs[i]);
                     tempAngle += sweepAngle;
                 }
+                mSpeed -= 1;
+                if (mSpeed < 0) {
+                    mSpeed = 0;
+                }
+
+                drawArrow();
             }
         } catch (Exception e) {
 
@@ -215,11 +246,68 @@ public class LuckyPanView extends SurfaceView implements SurfaceHolder.Callback,
         }
     }
 
+    private void drawItem(float angle, int imageWidth, Bitmap bitmap) {
+        float top = 0, left = 0;
+        top = (float) (mRadius + mRadius * 2 / 4.0f * Math.sin(Math.toRadians(angle))) - imageWidth / 2.0f;
+        left = (float) (mRadius + mRadius * 2 / 4.0f * Math.cos(Math.toRadians(angle))) - imageWidth / 2.0f;
+        RectF rect = new RectF(left, top, left + imageWidth, top + imageWidth);
+        mCanvas.save();
+        mCanvas.rotate(angle, left + imageWidth / 2.0f, top + imageWidth / 2.0f);
+        mCanvas.drawBitmap(bitmap, null, rect, mTextPaint);
+        mCanvas.restore();
+    }
+
+    private void drawArrow() {
+        int left = mRadius - mArrowWidth / 2;
+        int top = mRadius - mArrowHeight / 2;
+        mCanvas.save();
+        mCanvas.translate(left, top);
+        mIv.draw(mCanvas);
+        mCanvas.restore();
+    }
+
+    private void drawText(float angle, String text) {
+
+        float top = 0, left = 0;
+        Rect bound = new Rect();
+
+        mTextPaint.getTextBounds(text, 0, text.length(), bound);
+        top = (float) (mRadius + mRadius * 3 / 4.0f * Math.sin(Math.toRadians(angle))) - bound.height() / 2.0f;
+        left = (float) (mRadius + mRadius * 3 / 4.0f * Math.cos(Math.toRadians(angle))) - bound.width() / 2.0f;
+        RectF rect = new RectF(left, top, left + (bound.width() / 2), top + bound.height() / 2);
+        //mCanvas.drawBitmap(bitmap,null,rect,mTextPaint);
+        mCanvas.save();
+        mCanvas.rotate(angle + 90, left + bound.width() / 2.0f, top + bound.height() / 2.0f);
+        mCanvas.drawText(text, left, top, mTextPaint);
+        mCanvas.restore();
+
+    }
+
     private void drawPanel(float sweepAngle) {
 
     }
 
     private void drawBackGround() {
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        Rect r = new Rect();
+        mIv.getDrawingRect(r);
+        int dx= mRadius-r.centerX();
+        int dy = mRadius - r.centerY();
+        r.offset(dx,dy);
+
+        if(r.contains((int)x,(int)y)){
+            mSpeed += 100;
+        }
+
+        Log.e(TAG,"x->"+x +" y->"+y+ " rect:"+r);
+
+        return false;
     }
 }
