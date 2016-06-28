@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyWidgets</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_gravity_test">GravityTestActivity</string>
+    <string name="title_activity_blue_tooth">BlueToothActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

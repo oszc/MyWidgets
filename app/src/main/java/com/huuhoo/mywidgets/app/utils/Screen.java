@@ -1,11 +1,11 @@
 package com.huuhoo.mywidgets.app.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.WindowManager;
 
 /**
  * 3/14/16  2:28 PM
@@ -13,18 +13,17 @@ import android.view.Display;
  */
 public class Screen {
 
-    public static int getWidth(Activity context){
-        Display display = context.getWindowManager().
-                getDefaultDisplay();
+    public static int getWidth(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.x;
     }
 
-    public static int getHeight(Activity context){
-
-        Display display = context.getWindowManager().
-                getDefaultDisplay();
+    public static int getHeight(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.y;

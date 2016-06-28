@@ -1,39 +1,32 @@
 package com.huuhoo.mywidgets.app.utils;
 
+import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.util.AttributeSet;
 
 /**
  * 4/25/16  11:12 AM
  * Created by JustinZhang.
  */
-public class MyGridLayoutManager extends RecyclerView.LayoutManager{
+public class MyGridLayoutManager extends GridLayoutManager{
 
-    TextView tv;
-    @Override
-    public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-        return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+    public MyGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-
-    @Override
-    public void scrollToPosition(int position) {
-        super.scrollToPosition(position);
+    public MyGridLayoutManager(Context context, int spanCount) {
+        super(context, spanCount);
     }
 
-    @Override
-    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
-        super.smoothScrollToPosition(recyclerView, state, position);
+    public MyGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+        super(context, spanCount, orientation, reverseLayout);
     }
 
     @Override
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        super.onLayoutChildren(recycler, state);
-
-
-        //View viewForPosition = recycler.getViewForPosition(0);
-
+    public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        return super.scrollHorizontallyBy(dx, recycler, state);
     }
+
 }

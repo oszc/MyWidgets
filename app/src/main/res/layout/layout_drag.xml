@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+            android:id="@+id/tv_header"
+            android:text="我们认为，信息网络空间正面临着日益严峻的安全挑战，信息技术滥用情况严重，包括中俄在内的各国都拥有重要的共同利益与合作空间，理应在相互尊重和相互信任的基础上，就保障信息网络空间安全、推进信息网络空间发展的议题，全面开展实质性对话与合作。
+我们一贯恪守尊重信息网络空间国家主权的原则，支持各国维护自身安全和发展的合理诉求，倡导构建和平、安全、开放、合作的信息网络空间新秩序，探索在联合国框架内制定普遍接受的负责任行为国际准则。
+我们主张各国均有权平等参与互联网治理，有权根据本国法律和制度实际，维护本国网络安全。我们倡议建立多边、民主、透明的互联网治理体系，支持联合国在建立互联网国际治理机制方面发挥重要作用。
+"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_content"
+            android:layout_below="@id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+</merge>

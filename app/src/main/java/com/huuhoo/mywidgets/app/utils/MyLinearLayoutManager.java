@@ -13,7 +13,6 @@ import static android.content.ContentValues.TAG;
  */
 public class MyLinearLayoutManager extends RecyclerView.LayoutManager {
 
-
     private int mDecoratedViewWidth = 0;
     private int mDecoratedViewHeight = 0;
     private int mVisibleChildCount = 0;

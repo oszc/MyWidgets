@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +14,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.huuhoo.mywidgets.app"
@@ -22,6 +22,10 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+    }
+    dexOptions {
+        maxProcessCount 4 // this is the default value
+        javaMaxHeapSize "2g"
     }
 
     compileOptions {

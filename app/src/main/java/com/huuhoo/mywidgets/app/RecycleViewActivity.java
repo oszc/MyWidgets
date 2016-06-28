@@ -2,14 +2,15 @@ package com.huuhoo.mywidgets.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.huuhoo.mywidgets.app.utils.MyLinearLayoutManager;
+import com.huuhoo.mywidgets.app.utils.PageGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,11 @@ public class RecycleViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initDataSheet();
 
-        mRecycleview.setLayoutManager(new LinearLayoutManager(this));
-        mRecycleview.setLayoutManager(new MyLinearLayoutManager());
-        //mRecycleview.setLayoutManager(new GridLayoutManager(this,2,GridLayoutManager.HORIZONTAL,false));
-        //mRecycleview.setLayoutManager(new PageGridLayoutManager());
+        //mRecycleview.setLayoutManager(new LinearLayoutManager(this));
+        //mRecycleview.setLayoutManager(new MyLinearLayoutManager());
+
+        //mRecycleview.setLayoutManager(new GridLayoutManager(this,8,GridLayoutManager.HORIZONTAL,false));
+        mRecycleview.setLayoutManager(new PageGridLayoutManager());
         //mRecycleview.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
         mRecycleview.setAdapter(new HomeAdapter());
     }
@@ -47,8 +49,8 @@ public class RecycleViewActivity extends AppCompatActivity {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.item_home, null);
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mRecycleview.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
-            view.setLayoutParams(layoutParams);
+            //ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //view.setLayoutParams(layoutParams);
             return new MyViewHolder(view);
         }
 
@@ -63,10 +65,12 @@ public class RecycleViewActivity extends AppCompatActivity {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
+            ImageView iv;
             TextView tv;
 
             public MyViewHolder(View itemView) {
                 super(itemView);
+                iv = (ImageView) itemView.findViewById(R.id.iv);
                 tv = (TextView) itemView.findViewById(R.id.tv);
             }
         }
