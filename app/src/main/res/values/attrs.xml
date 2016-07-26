@@ -28,6 +28,12 @@
     <declare-styleable name="RoundProgressBarWidthNumber">
         <attr name="radius" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="BlueToothItem">
+        <attr name="content" format="string"/>
+        <attr name="on" format="string"/>
+        <attr name="off" format="string"/>
+
+    </declare-styleable>
 
     <item name="id_circle_menu_item_image" type="id"/>
     <item name="id_circle_menu_item_text" type="id"/>

@@ -21,11 +21,27 @@ import java.util.UUID;
 
 public class BlueToothActivity extends AppCompatActivity {
 
+    public BluetoothAdapter defaultAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blue_tooth);
 
+
+        defaultAdapter = BluetoothAdapter.getDefaultAdapter();
+        // 寻找蓝牙设备，android会将查找到的设备以广播形式发出去
+
+        if(defaultAdapter == null){
+            //no bluetooth device
+        }else{
+            defaultAdapter.isEnabled();
+        }
+        defaultAdapter.isDiscovering();
+        //  getPairedDevices();
+
+    }
+
+    public void startScanBluetoothDevices(){
         // 设置广播信息过滤
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
@@ -36,17 +52,9 @@ public class BlueToothActivity extends AppCompatActivity {
         intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         // 注册广播接收器，接收并处理搜索结果
         registerReceiver(receiver, intentFilter);
-        // 寻找蓝牙设备，android会将查找到的设备以广播形式发出去
-        BluetoothAdapter.getDefaultAdapter().startDiscovery();
-        BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(defaultAdapter == null){
-            //no bluetooth device
-        }else{
-            defaultAdapter.isEnabled();
-        }
-        //  getPairedDevices();
-
+        defaultAdapter.startDiscovery();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,6 +90,9 @@ public class BlueToothActivity extends AppCompatActivity {
 
     }
 
+    public void startScan(){
+
+    }
 
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {

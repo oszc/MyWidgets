@@ -17,5 +17,82 @@
             android:layout_height="wrap_content"
             android:text="蓝牙"/>
 
+    <GridLayout
+            android:layout_below="@+id/bt_bluetooth"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:columnCount="3"
+            android:useDefaultMargins="true"
+            android:rowCount="2">
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+
+        <ImageView
+
+                android:src="@drawable/home_mbank_1_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                />
+
+
+
+
+    </GridLayout>
+
     </RelativeLayout>
 

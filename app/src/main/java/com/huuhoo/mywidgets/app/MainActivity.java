@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.huuhoo.mywidgets.app.bluetooth.BlueToothActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -35,12 +34,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mBtBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent blueToothActivity = new Intent(MainActivity.this, BlueToothActivity.class);
-                startActivity(blueToothActivity);
+                //Intent blueToothActivity = new Intent(MainActivity.this, BlueToothActivity.class);
+                //startActivity(blueToothActivity);
+                startActivity(new Intent(MainActivity.this,ArrangeSingerActivity.class));
             }
         });
-
-
     }
 
 
