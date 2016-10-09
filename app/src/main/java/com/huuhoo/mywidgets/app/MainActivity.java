@@ -31,6 +31,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         mBtBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
